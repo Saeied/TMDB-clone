@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import TrendingSlider from "./Slider";
 import styles from "./index.module.css";
+import ErrorComponent from "@/components/common/ErrorComponent";
 import "react-circular-progressbar/dist/styles.css";
 
 export default function Trending() {
@@ -25,11 +26,7 @@ export default function Trending() {
   }, [time, page]);
 
   if (error) {
-    return (
-      <h3 className="text-red-600 text-3xl text-center my-36">
-        something went wrong
-      </h3>
-    );
+    return <ErrorComponent />;
   }
 
   return (
@@ -40,7 +37,7 @@ export default function Trending() {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "50% 80%",
       }}
-      className={`flex flex-col gap-1 h-[500px] py-10 px-7 lg:px-20 xl:px-52 ${styles.responsiveBgSize}`}
+      className={`flex flex-col gap-1 py-10 px-7 lg:px-20 xl:px-52 ${styles.responsiveBgSize}`}
     >
       <div className="flex flex-col sm:flex-row gap-4 items-center">
         <h2 className="text-[24px] font-[500]">Trending</h2>
