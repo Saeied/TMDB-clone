@@ -2,9 +2,7 @@ import instance from "@/services/interceptor";
 import HeaderSearchInput from "./HeaderSearchInput";
 
 const LandingHeader = async () => {
-  const res = await instance.get(
-    `https://api.themoviedb.org/3/trending/movie/day`
-  );
+  const res = await instance.get("/trending/movie/day");
   const data = await res.data;
   const randomNum = Math.floor(Math.random() * 19);
 
@@ -16,7 +14,7 @@ const LandingHeader = async () => {
         backgroundPosition: "contain",
         backgroundRepeat: "no-repeat",
       }}
-      className="flex flex-col gap-12 py-[90px] px-7 lg:px-20 xl:px-52"
+      className="flex flex-col gap-12 py-[100px] px-7 lg:px-20 xl:px-52"
     >
       <div className="flex flex-col leading-none text-white">
         <h2 className="text-[3em] font-bold">Welcome.</h2>

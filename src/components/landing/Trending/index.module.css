@@ -1,0 +1,9 @@
+.responsiveBgSize {
+  background-size: auto;
+}
+
+@media screen and (min-width: 1200px) {
+  .responsiveBgSize {
+    background-size: 78%;
+  }
+}
