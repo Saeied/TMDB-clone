@@ -9,9 +9,9 @@ const LandingHeader = async () => {
   return (
     <div
       style={{
-        background: `url(https://image.tmdb.org/t/p/original${data.results[randomNum].backdrop_path})`,
+        backgroundImage: `url(https://image.tmdb.org/t/p/original${data.results[randomNum].backdrop_path})`,
         backgroundSize: "cover",
-        backgroundPosition: "contain",
+        backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
       className="flex flex-col gap-12 py-[100px] px-7 lg:px-20 xl:px-52"
