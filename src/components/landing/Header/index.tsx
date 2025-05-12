@@ -1,10 +1,11 @@
+import instance from "@/services/interceptor";
 import HeaderSearchInput from "./HeaderSearchInput";
 
 const LandingHeader = async () => {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.API_KEY}`
+  const res = await instance.get(
+    `https://api.themoviedb.org/3/trending/movie/day`
   );
-  const data = await res.json();
+  const data = await res.data;
   const randomNum = Math.floor(Math.random() * 19);
 
   return (
