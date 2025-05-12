@@ -1,4 +1,5 @@
 import LandingHeader from "@/components/landing/Header";
+import Trending from "@/components/landing/Trending";
 import { Skeleton } from "@heroui/skeleton";
 import { Suspense } from "react";
 
@@ -10,6 +11,7 @@ export default function Home() {
       >
         <LandingHeader />
       </Suspense>
+      <Trending />
     </>
   );
 }
