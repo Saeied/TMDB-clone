@@ -122,7 +122,7 @@ export default function MyNavbar() {
           ))}
         </NavbarMenu>
       </Navbar>
-      <div className="bg-white flex gap-3 items-center px-7 lg:px-20 xl:px-52">
+      <div className="bg-white flex gap-3 items-center px-7 lg:px-20 xl:px-52 border-b">
         <HiSearch size={20} />
         <input
           className="w-full outline-none py-3 italic text-gray-400"
