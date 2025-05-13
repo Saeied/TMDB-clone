@@ -1,18 +1,19 @@
 "use client";
 import ErrorComponent from "@/components/common/ErrorComponent";
 import instance from "@/services/interceptor";
+import Link from "next/link";
 import { Image, Tab, Tabs, Skeleton } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 
 function Trailers() {
   const [trailersBgUrl, setTrailersBgUrl] = useState<string>("");
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isFetching, error } = useQuery({
     queryKey: ["nowPlaying"],
     queryFn: () => instance.get("/movie/now_playing"),
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -58,7 +59,7 @@ function Trailers() {
         </div>
 
         <div className="flex gap-4 overflow-x-scroll overflow-y-hidden custom-scroll pb-1">
-          {isLoading ? (
+          {isFetching ? (
             <>
               {new Array(4).fill("").map(() => (
                 <Skeleton

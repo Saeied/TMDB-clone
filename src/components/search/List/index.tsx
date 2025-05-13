@@ -17,6 +17,7 @@ export default function SearchResultsList({ query }: Iprops) {
     queryKey: ["searchedMovies"],
     queryFn: () =>
       instance.get(`/search/movie?query=${query}&page=${page.toString()}`),
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
