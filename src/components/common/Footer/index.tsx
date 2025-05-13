@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-main text-white flex flex-col sm:flex-row justify-center items-center sm:items-start gap-10 py-20">
-      <div id="kroos" className="flex flex-col items-center gap-8">
+    <footer className="bg-main text-white flex flex-col sm:flex-row justify-center items-center sm:items-start gap-10 py-20 px-7">
+      <div className="flex flex-col items-center sm:items-stretch gap-8">
         <Image
           width={130}
           height={93}
@@ -13,7 +13,7 @@ export default function Footer() {
           alt="tmdb svg"
         />
         <Link
-          className="bg-white text-[#01B4E4] py-3 mx-2 text-center rounded-lg font-bold"
+          className="bg-white text-[#01B4E4] text-[14px] lg:text-[18px] py-3 px-2 mx-2 text-center truncate rounded-lg font-bold"
           href="#"
         >
           Hi Saeed
