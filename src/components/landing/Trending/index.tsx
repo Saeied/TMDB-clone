@@ -14,7 +14,7 @@ export default function Trending() {
   const [time, setTime] = useState("day");
   const [page, setPage] = useState("1");
 
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isFetching, error, refetch } = useQuery({
     queryKey: ["dayTrending"],
     queryFn: () =>
       instance
@@ -73,7 +73,7 @@ export default function Trending() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {isLoading ? <SliderSkeleton /> : <Slider data={data} />}
+            {isFetching ? <SliderSkeleton /> : <Slider data={data} />}
           </motion.div>
         </AnimatePresence>
       </div>
