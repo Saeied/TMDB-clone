@@ -34,7 +34,7 @@ function Trailers() {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-        className="flex flex-col pt-10 gap-6 px-7 lg:px-20 xl:px-52 transition-all duration-1000"
+        className="flex flex-col pt-6 gap-6 px-7 lg:px-20 xl:px-52 transition-all duration-1000"
       >
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           <h2 className="text-white text-[24px]">Latest Trailers</h2>
@@ -55,7 +55,7 @@ function Trailers() {
           </div>
         </div>
 
-        <div className="flex gap-4 overflow-x-scroll custom-scroll pb-4">
+        <div className="flex gap-4 overflow-x-scroll overflow-y-hidden custom-scroll pb-1">
           {isLoading ? (
             <>
               {new Array(4).fill("").map(() => (

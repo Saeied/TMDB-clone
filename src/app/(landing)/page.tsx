@@ -1,4 +1,6 @@
+import SliderSkeleton from "@/components/common/SliderSkeleton";
 import LandingHeader from "@/components/landing/Header";
+import Popular from "@/components/landing/Popular";
 import Trailers from "@/components/landing/Trailers";
 import Trending from "@/components/landing/Trending";
 import { Skeleton } from "@heroui/skeleton";
@@ -14,6 +16,9 @@ export default function Home() {
       </Suspense>
       <Trending />
       <Trailers />
+      <Suspense fallback={<SliderSkeleton />}>
+        <Popular />
+      </Suspense>
     </>
   );
 }

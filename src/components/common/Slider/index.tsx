@@ -1,6 +1,7 @@
+"use client";
 import { FC, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { IoCaretForwardOutline, IoCaretBackOutline } from "react-icons/io5";
 import { Image } from "@heroui/react";
@@ -16,7 +17,7 @@ interface IProps {
   };
 }
 
-const TrendingSlider: FC<IProps> = ({ data }) => {
+const Slider: FC<IProps> = ({ data }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -37,7 +38,7 @@ const TrendingSlider: FC<IProps> = ({ data }) => {
         </button>
       </div>
       <Swiper
-        modules={[Navigation]}
+        modules={[Navigation, Autoplay]}
         spaceBetween={20}
         autoplay={{
           delay: 2500,
@@ -50,7 +51,7 @@ const TrendingSlider: FC<IProps> = ({ data }) => {
           320: {
             slidesPerView: 2,
           },
-          480:{
+          480: {
             slidesPerView: 3,
           },
           640: {
@@ -67,6 +68,12 @@ const TrendingSlider: FC<IProps> = ({ data }) => {
           },
         }}
         loop={true}
+        onBeforeInit={(swiper: any) => {
+          if (typeof swiper.params.navigation !== "boolean") {
+            swiper.params.navigation.prevEl = prevRef.current;
+            swiper.params.navigation.nextEl = nextRef.current;
+          }
+        }}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,
@@ -115,4 +122,4 @@ const TrendingSlider: FC<IProps> = ({ data }) => {
   );
 };
 
-export default TrendingSlider;
+export default Slider;
