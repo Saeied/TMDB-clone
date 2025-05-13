@@ -1,35 +1,40 @@
+"use client";
+import { ParamValue } from "next/dist/server/request/params";
 import MyLink from "./Link";
 import { RiInformation2Fill } from "react-icons/ri";
 
-interface Iprops {
+interface IProps {
   query: string | null;
+  slug: ParamValue | undefined;
 }
 
-export default function SearchResultsNumbers({ query }: Iprops) {
-  const searchResultsLinks: { text: string; url: string }[] = [
+export default function SearchResultsNumbers({ query, slug }: IProps) {
+  const searchResultsLinks: { name: string; text: string; url: string }[] = [
     {
+      name: "movie",
       text: "Movies",
       url: `/search/movie?query=${query}`,
     },
+    { name: "tv", text: "TV Shows", url: `/search/tv?query=${query}` },
     {
-      text: "TV Shows",
-      url: `/search/tv?query=${query}`,
+      name: "company",
+      text: "Companies",
+      url: `/search/company?query=${query}`,
     },
     {
-      text: "Keywords",
-      url: `/search/keyword?query=${query}`,
-    },
-    {
-      text: "Collections",
-      url: `/search/collection?query=${query}`,
-    },
-    {
+      name: "person",
       text: "People",
       url: `/search/person?query=${query}`,
     },
     {
-      text: "Companies",
-      url: `/search/company?query=${query}`,
+      name: "collection",
+      text: "Collections",
+      url: `/search/collection?query=${query}`,
+    },
+    {
+      name: "keyword",
+      text: "Keywords",
+      url: `/search/keyword?query=${query}`,
     },
   ];
 
@@ -42,13 +47,23 @@ export default function SearchResultsNumbers({ query }: Iprops) {
         <div>
           <ul className="bg-white py-2">
             {searchResultsLinks.map((item, index) => (
-              <MyLink key={index} text={item.text} url={item.url} />
+              <MyLink
+                key={index}
+                name={item.name}
+                text={item.text}
+                url={item.url}
+                slug={slug}
+              />
             ))}
           </ul>
         </div>
       </div>
       <p className="text-base text-gray-500 text-pretty">
-        <RiInformation2Fill className="inline-block mr-1" color="black" size={20} />
+        <RiInformation2Fill
+          className="inline-block mr-1"
+          color="black"
+          size={20}
+        />
         Tip: You can use the 'y:' filter to narrow your results by year.
         Example: 'star wars y:1977'.
       </p>

@@ -2,21 +2,24 @@ import instance from "@/services/interceptor";
 import { useQuery } from "@tanstack/react-query";
 import CustomCard from "./Card";
 import ErrorComponent from "@/components/common/ErrorComponent";
-import { Button, Pagination, Skeleton } from "@heroui/react";
+import { Button, Pagination, Skeleton, Spinner } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { HiMiniArrowLongLeft, HiMiniArrowLongRight } from "react-icons/hi2";
 import { cn } from "@/lib/utils";
+import { ParamValue } from "next/dist/server/request/params";
+import PersonCard from "./Person";
 
-interface Iprops {
+interface IProps {
   query: string | null;
+  slug: ParamValue | undefined;
 }
 
-export default function SearchResultsList({ query }: Iprops) {
+export default function SearchResultsList({ query, slug }: IProps) {
   const [page, setPage] = useState(1);
   const { data, isFetching, error, refetch } = useQuery({
     queryKey: ["searchedMovies"],
     queryFn: () =>
-      instance.get(`/search/movie?query=${query}&page=${page.toString()}`),
+      instance.get(`/search/${slug}?query=${query}&page=${page.toString()}`),
     refetchOnWindowFocus: false,
   });
 
@@ -31,18 +34,62 @@ export default function SearchResultsList({ query }: Iprops) {
       ) : (
         <>
           {isFetching ? (
-            new Array(10)
-              .fill("")
-              .map((_, index) => (
-                <Skeleton key={index} className="h-[140px] rounded-lg" />
-              ))
+            <>
+              {slug == "movie" || slug == "tv" || slug == "collection" ? (
+                new Array(10)
+                  .fill("")
+                  .map((_, index) => (
+                    <Skeleton key={index} className="h-[140px] rounded-lg" />
+                  ))
+              ) : (
+                <Spinner className="mt-4" />
+              )}
+            </>
           ) : (
             <>
               {data?.data.results.length > 0 ? (
                 <>
-                  {data?.data.results.map((item: any) => (
-                    <CustomCard key={item.id} {...item} />
-                  ))}
+                  <>
+                    {slug == "movie" || slug == "tv" || slug == "collection" ? (
+                      <>
+                        {data?.data.results.map((item) => (
+                          <CustomCard key={item.id} {...item} />
+                        ))}
+                      </>
+                    ) : (
+                      <>
+                        {slug == "company" ? (
+                          <ul className="border-t border-b border-gray-300 divide-y divide-gray-300">
+                            {data?.data.results.map(
+                              (item: { id: string; name: string }) => (
+                                <li key={item.id} className="text-[18px] py-2">
+                                  {item.name}
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        ) : (
+                          <>
+                            {slug == "keyword" ? (
+                              <ul>
+                                {data?.data.results.map(
+                                  (item: { id: string; name: string }) => (
+                                    <li key={item.id}>{item.name}</li>
+                                  )
+                                )}
+                              </ul>
+                            ) : (
+                              <div className="flex flex-col gap-3">
+                                {data?.data.results.map((item) => (
+                                  <PersonCard key={item.id} {...item} />
+                                ))}
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </>
+                    )}
+                  </>
                   <div className="flex justify-center items-center mt-4">
                     <Button
                       disabled={page == 1}
@@ -92,7 +139,7 @@ export default function SearchResultsList({ query }: Iprops) {
                   </div>
                 </>
               ) : (
-                <p>There are no movies that matched your query.</p>
+                <p>There are no results that matched your query.</p>
               )}
             </>
           )}
@@ -100,26 +147,4 @@ export default function SearchResultsList({ query }: Iprops) {
       )}
     </div>
   );
-}
-
-{
-  /* <Pagination
-  // style={{ direction: "ltr" }}
-  // className="mt-8"
-  // classNames={{
-  //   base: "flex justify-center",
-  //   item: "rounded-full mx-1 dark:bg-dark-100",
-  //   prev: "dark:bg-dark-100",
-  //   next: "dark:bg-dark-100",
-  //   cursor: "bg-primary rounded-full",
-  // }}
-  total={Math.ceil(data?.data.results / 10)}
-  page={page}
-  showControls
-  onChange={(number) => {
-    // setReFetch(true);
-    // setCoursesPageNumber(number);
-    // scrollTo({ top: 560, behavior: "smooth" });
-  }}
-/>; */
 }
