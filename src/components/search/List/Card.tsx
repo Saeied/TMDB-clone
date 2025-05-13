@@ -2,8 +2,11 @@ import moment from "moment";
 
 export default function CustomCard({
   title,
+  name,
+  original_name,
   poster_path,
   release_date,
+  first_air_date,
   overview,
 }) {
   return (
@@ -18,9 +21,22 @@ export default function CustomCard({
 
       <div className="flex flex-col justify-between py-4">
         <div>
-          <h2 className="text-[20px]">{title}</h2>
+          <h2 className="text-[20px] line-clamp-1">
+            {title ? title : `${name}`}
+            {original_name && (
+              <span className="text-gray-400 text-[18px] font-thin">{` (${original_name})`}</span>
+            )}
+          </h2>
           <p className="text-gray-500">
-            {moment(release_date, "YYYY-M-D").format("MMMM D, YYYY")}
+            {release_date ? (
+              moment(release_date, "YYYY-M-D").format("MMMM D, YYYY")
+            ) : (
+              <>
+                {first_air_date
+                  ? moment(first_air_date, "YYYY-M-D").format("MMMM D, YYYY")
+                  : null}
+              </>
+            )}
           </p>
         </div>
         <p className="text-[15px] text-justify line-clamp-2 leading-tight">

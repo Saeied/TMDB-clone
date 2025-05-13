@@ -14,7 +14,7 @@ export default function HeaderSearchInput() {
         onChange={(e) => setSearchKey(e.target.value)}
         onKeyUp={(e) => {
           if (e.key == "Enter" && searchKey) {
-            router.push(`/search?query=${searchKey}`);
+            router.push(`/search/movie?query=${searchKey}`);
           }
         }}
         classNames={{
@@ -31,7 +31,7 @@ export default function HeaderSearchInput() {
             className="text-white rounded-3xl py-6 px-7 text-[16px]"
             onPress={() => {
               if (searchKey) {
-                router.push(`/search?query=${searchKey}`);
+                router.push(`/search/movie?query=${searchKey}`);
               }
             }}
           >
