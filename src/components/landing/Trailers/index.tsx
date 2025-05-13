@@ -22,7 +22,9 @@ function Trailers() {
   }, [data]);
 
   if (error) {
-    return <ErrorComponent />;
+    return (
+      <ErrorComponent className="my-36">Something Went Wrong</ErrorComponent>
+    );
   }
 
   return (
