@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import instance from "@/services/interceptor";
-import { Skeleton, Tab, Tabs } from "@heroui/react";
+import { Tab, Tabs } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
-import TrendingSlider from "./Slider";
+import Slider from "../../common/Slider";
 import styles from "./index.module.css";
 import ErrorComponent from "@/components/common/ErrorComponent";
+import SliderSkeleton from "@/components/common/SliderSkeleton";
 import "react-circular-progressbar/dist/styles.css";
 
 export default function Trending() {
@@ -70,18 +71,7 @@ export default function Trending() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {isLoading ? (
-              <div className="flex justify-center gap-6 py-4">
-                {new Array(7).fill("").map((_, index) => (
-                  <Skeleton
-                    className="h-[220px] w-[160px] rounded-xl"
-                    key={index}
-                  ></Skeleton>
-                ))}
-              </div>
-            ) : (
-              <TrendingSlider data={data} />
-            )}
+            {isLoading ? <SliderSkeleton /> : <Slider data={data} />}
           </motion.div>
         </AnimatePresence>
       </div>
