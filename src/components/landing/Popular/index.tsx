@@ -1,10 +1,18 @@
+'use client'
 import Slider from "@/components/common/Slider";
 import instance from "@/services/interceptor";
 import { Button } from "@heroui/button";
+import { useQuery } from "@tanstack/react-query";
 
-async function Popular() {
-  const res = await instance.get("/movie/popular");
-  const data = await res.data;
+function Popular() {
+  // const res = await instance.get("/movie/popular");
+  // const data = await res.data;
+
+  const {data, isFetching, error} = useQuery({
+    queryKey : ['popular'],
+    queryFn : () => instance.get('/movie/popular').then( res => res.data ),
+    refetchOnWindowFocus : false
+  })
 
   return (
     <div className="flex flex-col gap-1 py-10 px-7 lg:px-20 xl:px-52">
@@ -13,7 +21,7 @@ async function Popular() {
         <Button className="bg-main text-[#1ed5a9]">click</Button>
       </div>
       <div className="relative">
-        <Slider data={data} />
+        <Slider isFetching={isFetching} data={data} />
       </div>
     </div>
   );
