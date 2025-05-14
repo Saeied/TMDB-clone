@@ -49,11 +49,8 @@ const Slider: FC<IProps> = ({ data, isFetching }) => {
           0: {
             slidesPerView: 1,
           },
-          320: {
+          400: {
             slidesPerView: 2,
-          },
-          480: {
-            slidesPerView: 3,
           },
           640: {
             slidesPerView: 4,
@@ -84,10 +81,12 @@ const Slider: FC<IProps> = ({ data, isFetching }) => {
           <>
             {new Array(7).fill("").map((_, index) => (
               <SwiperSlide>
-                <Skeleton
-                  className="h-[220px] w-[160px] rounded-xl"
-                  key={index}
-                ></Skeleton>
+                <div className="flex flex-col gap-6 items-center">
+                  <Skeleton
+                    className="h-[220px] w-[160px] rounded-xl"
+                    key={index}
+                  ></Skeleton>
+                </div>
               </SwiperSlide>
             ))}
           </>
