@@ -7,19 +7,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import Slider from "../../common/Slider";
 import styles from "./index.module.css";
 import ErrorComponent from "@/components/common/ErrorComponent";
-import SliderSkeleton from "@/components/common/SliderSkeleton";
 import "react-circular-progressbar/dist/styles.css";
 
 export default function Trending() {
   const [time, setTime] = useState("day");
   const [page, setPage] = useState("1");
 
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["dayTrending"],
+  const { data, isFetching, error, refetch } = useQuery({
+    queryKey: ["trending"],
     queryFn: () =>
       instance
         .get(`/trending/movie/${time}?page=${page}`)
         .then((res) => res.data),
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -27,7 +27,9 @@ export default function Trending() {
   }, [time, page]);
 
   if (error) {
-    return <ErrorComponent />;
+    return (
+      <ErrorComponent className="my-36">Something Went Wrong</ErrorComponent>
+    );
   }
 
   return (
@@ -71,7 +73,7 @@ export default function Trending() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {isLoading ? <SliderSkeleton /> : <Slider data={data} />}
+            <Slider isFetching={isFetching} data={data} />
           </motion.div>
         </AnimatePresence>
       </div>
