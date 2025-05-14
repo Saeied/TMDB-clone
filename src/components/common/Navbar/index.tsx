@@ -14,9 +14,12 @@ import { HiSearch } from "react-icons/hi";
 import { User } from "@heroui/user";
 import { FaBell } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function MyNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const menuItems = [
     "Profile",
@@ -122,7 +125,12 @@ export default function MyNavbar() {
           ))}
         </NavbarMenu>
       </Navbar>
-      <div className="bg-white flex gap-3 items-center px-7 lg:px-20 xl:px-52 border-b">
+      <div
+        className={cn(
+          "bg-white flex gap-3 items-center px-7 lg:px-20 xl:px-52 border-b",
+          pathname.startsWith("/movie") && "hidden"
+        )}
+      >
         <HiSearch size={20} />
         <input
           className="w-full outline-none py-3 italic text-gray-400"

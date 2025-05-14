@@ -1,3 +1,4 @@
+import { MovieProps, TvShowProps } from "@/types";
 import moment from "moment";
 
 export default function CustomCard({
@@ -8,7 +9,7 @@ export default function CustomCard({
   release_date,
   first_air_date,
   overview,
-}) {
+}: MovieProps & TvShowProps) {
   return (
     <div className="flex gap-3 rounded-lg overflow-hidden max-h-[145px] pe-5 border shadow-md">
       <img

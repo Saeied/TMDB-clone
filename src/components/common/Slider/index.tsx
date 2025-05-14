@@ -7,13 +7,14 @@ import { IoCaretForwardOutline, IoCaretBackOutline } from "react-icons/io5";
 import { Image, Skeleton } from "@heroui/react";
 import Link from "next/link";
 import moment from "moment";
+import { MovieProps } from "@/types";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 interface IProps {
   data: {
-    results: {}[];
+    results: MovieProps[];
   };
   isFetching: boolean;
 }
@@ -91,9 +92,12 @@ const Slider: FC<IProps> = ({ data, isFetching }) => {
             ))}
           </>
         ) : (
-          data?.results.map((item: any, index: number) => (
+          data?.results.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="flex flex-col gap-6 items-center">
+              <Link
+                href={`/movie/${item.id}`}
+                className="flex flex-col gap-6 items-center"
+              >
                 <div className="relative">
                   <Image
                     src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
@@ -119,16 +123,14 @@ const Slider: FC<IProps> = ({ data, isFetching }) => {
                   />
                 </div>
                 <div>
-                  <Link className="font-[600]" href="#">
-                    {item.title}
-                  </Link>
+                  <p className="font-[600]">{item.title}</p>
                   <p className="text-gray-500">
                     {moment(item.release_date, "YYYY-M-D").format(
                       "MMMM D, YYYY"
                     )}
                   </p>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))
         )}

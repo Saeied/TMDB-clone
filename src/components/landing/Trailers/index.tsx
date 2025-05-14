@@ -6,6 +6,7 @@ import { Image, Tab, Tabs, Skeleton } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import { MovieProps } from "@/types";
 
 function Trailers() {
   const [trailersBgUrl, setTrailersBgUrl] = useState<string>("");
@@ -70,39 +71,33 @@ function Trailers() {
             </>
           ) : (
             <>
-              {data?.data.results.map(
-                (item: {
-                  title: string;
-                  backdrop_path: string;
-                  overview: string;
-                }) => (
-                  <div
-                    key={crypto.randomUUID()}
-                    className="min-w-[290px] flex flex-col p-2 gap-4 items-center cursor-pointer group hover:scale-105 transition"
-                    onMouseEnter={() => setTrailersBgUrl(item.backdrop_path)}
-                  >
-                    <div className="relative">
-                      <FaPlay
-                        size={38}
-                        color="white"
-                        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 group-hover:scale-125 transition"
-                      />
-                      <Image
-                        height={170}
-                        src={`https://image.tmdb.org/t/p/w342${item.backdrop_path}`}
-                      />
-                    </div>
-                    <div className="flex flex-col items-center leading-none text-white">
-                      <Link href="#" className="text-[20px]">
-                        {item.title}
-                      </Link>
-                      <h3 className="text-[16px]">
-                        {item.overview.slice(0, 24)}
-                      </h3>
-                    </div>
+              {data?.data.results.map((item: MovieProps) => (
+                <div
+                  key={crypto.randomUUID()}
+                  className="min-w-[290px] flex flex-col p-2 gap-4 items-center cursor-pointer group hover:scale-105 transition"
+                  onMouseEnter={() => setTrailersBgUrl(item.backdrop_path)}
+                >
+                  <div className="relative">
+                    <FaPlay
+                      size={38}
+                      color="white"
+                      className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 group-hover:scale-125 transition"
+                    />
+                    <Image
+                      height={170}
+                      src={`https://image.tmdb.org/t/p/w342${item.backdrop_path}`}
+                    />
                   </div>
-                )
-              )}
+                  <div className="flex flex-col items-center leading-none text-white">
+                    <Link href="#" className="text-[20px]">
+                      {item.title}
+                    </Link>
+                    <h3 className="text-[16px]">
+                      {item.overview.slice(0, 24)}
+                    </h3>
+                  </div>
+                </div>
+              ))}
             </>
           )}
         </div>
