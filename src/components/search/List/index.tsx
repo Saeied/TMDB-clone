@@ -8,6 +8,7 @@ import { HiMiniArrowLongLeft, HiMiniArrowLongRight } from "react-icons/hi2";
 import { cn } from "@/lib/utils";
 import { ParamValue } from "next/dist/server/request/params";
 import PersonCard from "./Person";
+import { MovieProps, Person, TvShowProps } from "@/types";
 
 interface IProps {
   query: string | null;
@@ -52,9 +53,11 @@ export default function SearchResultsList({ query, slug }: IProps) {
                   <>
                     {slug == "movie" || slug == "tv" || slug == "collection" ? (
                       <>
-                        {data?.data.results.map((item) => (
-                          <CustomCard key={item.id} {...item} />
-                        ))}
+                        {data?.data.results.map(
+                          (item: MovieProps & TvShowProps) => (
+                            <CustomCard key={item.id} {...item} />
+                          )
+                        )}
                       </>
                     ) : (
                       <>
@@ -80,7 +83,7 @@ export default function SearchResultsList({ query, slug }: IProps) {
                               </ul>
                             ) : (
                               <div className="flex flex-col gap-3">
-                                {data?.data.results.map((item) => (
+                                {data?.data.results.map((item: Person) => (
                                   <PersonCard key={item.id} {...item} />
                                 ))}
                               </div>
