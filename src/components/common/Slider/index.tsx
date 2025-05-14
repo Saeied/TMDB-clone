@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { IoCaretForwardOutline, IoCaretBackOutline } from "react-icons/io5";
-import { Image } from "@heroui/react";
+import { Image, Skeleton } from "@heroui/react";
 import Link from "next/link";
 import moment from "moment";
 import "swiper/css";
@@ -15,9 +15,10 @@ interface IProps {
   data: {
     results: {}[];
   };
+  isFetching: boolean;
 }
 
-const Slider: FC<IProps> = ({ data }) => {
+const Slider: FC<IProps> = ({ data, isFetching }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -48,11 +49,8 @@ const Slider: FC<IProps> = ({ data }) => {
           0: {
             slidesPerView: 1,
           },
-          320: {
+          400: {
             slidesPerView: 2,
-          },
-          480: {
-            slidesPerView: 3,
           },
           640: {
             slidesPerView: 4,
@@ -79,44 +77,61 @@ const Slider: FC<IProps> = ({ data }) => {
           nextEl: nextRef.current,
         }}
       >
-        {data?.results.map((item: any, index: number) => (
-          <SwiperSlide key={index}>
-            <div className="flex flex-col gap-6 items-center">
-              <div className="relative">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
-                  className="rounded-lg h-[220px]"
-                />
-                <CircularProgressbar
-                  className="w-9 h-9 absolute -left-10 -bottom-3 z-10"
-                  value={item.vote_average * 10}
-                  text={`${Math.ceil(item.vote_average * 10)}%`}
-                  background
-                  styles={buildStyles({
-                    pathColor:
-                      item.vote_average * 10 >= 70
-                        ? "#21D07A"
-                        : item.vote_average * 10 >= 30
-                        ? "#D2D531"
-                        : "red",
-                    textColor: "#fff",
-                    trailColor: "#fff",
-                    textSize: "30px",
-                    backgroundColor: "#000",
-                  })}
-                />
+        {isFetching ? (
+          <>
+            {new Array(7).fill("").map((_, index) => (
+              <SwiperSlide>
+                <div className="flex flex-col gap-6 items-center">
+                  <Skeleton
+                    className="h-[220px] w-[160px] rounded-xl"
+                    key={index}
+                  ></Skeleton>
+                </div>
+              </SwiperSlide>
+            ))}
+          </>
+        ) : (
+          data?.results.map((item: any, index: number) => (
+            <SwiperSlide key={index}>
+              <div className="flex flex-col gap-6 items-center">
+                <div className="relative">
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
+                    className="rounded-lg h-[220px]"
+                  />
+                  <CircularProgressbar
+                    className="w-9 h-9 absolute -left-10 -bottom-3 z-10"
+                    value={item.vote_average * 10}
+                    text={`${Math.ceil(item.vote_average * 10)}%`}
+                    background
+                    styles={buildStyles({
+                      pathColor:
+                        item.vote_average * 10 >= 70
+                          ? "#21D07A"
+                          : item.vote_average * 10 >= 30
+                          ? "#D2D531"
+                          : "red",
+                      textColor: "#fff",
+                      trailColor: "#fff",
+                      textSize: "30px",
+                      backgroundColor: "#000",
+                    })}
+                  />
+                </div>
+                <div>
+                  <Link className="font-[600]" href="#">
+                    {item.title}
+                  </Link>
+                  <p className="text-gray-500">
+                    {moment(item.release_date, "YYYY-M-D").format(
+                      "MMMM D, YYYY"
+                    )}
+                  </p>
+                </div>
               </div>
-              <div>
-                <Link className="font-[600]" href="#">
-                  {item.title}
-                </Link>
-                <p className="text-gray-500">
-                  {moment(item.release_date, "YYYY-M-D").format("MMMM D, YYYY")}
-                </p>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
     </>
   );

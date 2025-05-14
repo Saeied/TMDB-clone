@@ -64,7 +64,7 @@ function Trailers() {
               {new Array(4).fill("").map(() => (
                 <Skeleton
                   key={crypto.randomUUID()}
-                  className="w-[300px] h-[170px] rounded-xl"
+                  className="min-w-[300px] min-h-[170px] rounded-xl"
                 ></Skeleton>
               ))}
             </>
