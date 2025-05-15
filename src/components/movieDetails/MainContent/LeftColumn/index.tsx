@@ -1,3 +1,10 @@
+import TopBilledCast from "./Cast";
+
 export default function LeftColumn() {
-  return <div className="w-[80%] bg-blue-200"></div>;
+  return (
+    <div className="w-full lg:w-[77%]">
+      <TopBilledCast />
+      <hr className="my-3"/>
+    </div>
+  );
 }
