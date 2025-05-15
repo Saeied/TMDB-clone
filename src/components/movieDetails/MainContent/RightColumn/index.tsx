@@ -1,10 +1,10 @@
 "use client";
 import instance from "@/services/interceptor";
 import { MovieProps } from "@/types";
-import { Spinner } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { FaLink } from "react-icons/fa";
+import { FaLink, FaPlay } from "react-icons/fa";
 
 function CustomLi({ title, text }: { title: string; text: String }) {
   return (
@@ -29,9 +29,21 @@ export default function RightColumn({ movie }: { movie: MovieProps }) {
   });
 
   return (
-    <div className="w-[20%] flex flex-col pt-20">
+    <div className="hidden lg:flex w-[23%] flex-col pt-10">
       <ul className="flex flex-col gap-5">
-        <li className="mb-4">
+        <li>
+          <div className="bg-[#F0F0F0] flex justify-between p-2 rounded-lg">
+            <Button className="bg-[#57AFD5] text-white rounded-lg">
+              <FaPlay className="animate-pulse" />
+              Watch Now
+            </Button>
+            <div>
+              <p className="text-[14px]">Dope Thief</p>
+              <p className="text-[12px]">on Apple TV+</p>
+            </div>
+          </div>
+        </li>
+        <li className="my-4">
           <FaLink size={25} />
         </li>
         <CustomLi title="Status" text={movie.status} />
@@ -39,11 +51,8 @@ export default function RightColumn({ movie }: { movie: MovieProps }) {
           title="Original Language"
           text={movie.original_language.toUpperCase()}
         />
-        <CustomLi
-          title="Budget"
-          text={movie.budget.toString().toLocaleString()}
-        />
-        <CustomLi title="Revenue" text={movie.revenue.toString()} />
+        <CustomLi title="Budget" text={`$${movie.budget.toLocaleString()}`} />
+        <CustomLi title="Revenue" text={`$${movie.revenue.toLocaleString()}`} />
 
         <li className="flex flex-col gap-2">
           <strong>Keywords</strong>

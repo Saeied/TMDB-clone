@@ -50,4 +50,5 @@ export interface Crew {
 
 export interface Cast extends Omit<Crew, "job"> {
   character: string;
+  order: number;
 }
