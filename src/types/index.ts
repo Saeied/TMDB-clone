@@ -64,3 +64,7 @@ export interface Review {
   content: string;
   created_at: string;
 }
+
+export interface MediaProps {
+  file_path: string;
+}

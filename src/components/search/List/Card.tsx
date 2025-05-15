@@ -1,7 +1,9 @@
 import { MovieProps, TvShowProps } from "@/types";
 import moment from "moment";
+import Link from "next/link";
 
 export default function CustomCard({
+  id,
   title,
   name,
   original_name,
@@ -11,7 +13,10 @@ export default function CustomCard({
   overview,
 }: MovieProps & TvShowProps) {
   return (
-    <div className="flex gap-3 rounded-lg overflow-hidden max-h-[145px] pe-5 border shadow-md">
+    <Link
+      href={release_date ? `/movie/${id}` : "#"}
+      className="flex gap-3 rounded-lg overflow-hidden max-h-[145px] pe-5 border shadow-md cursor-pointer"
+    >
       <img
         src={
           poster_path == null
@@ -44,6 +49,6 @@ export default function CustomCard({
           {overview}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }

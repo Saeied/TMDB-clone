@@ -26,7 +26,7 @@ export default function SearchResultsList({ query, slug }: IProps) {
 
   useEffect(() => {
     refetch();
-  }, [page]);
+  }, [page, query]);
 
   return (
     <div className="w-full md:w-[78%] flex flex-col gap-5">
