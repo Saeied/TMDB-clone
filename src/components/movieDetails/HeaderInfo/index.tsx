@@ -117,7 +117,7 @@ export default async function HeaderInfo({
           <p>{movie.overview}</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 justify-items-center sm:justify-items-start">
+        <div className="hidden sm:grid grid-cols-2 sm:grid-cols-3 justify-items-center sm:justify-items-start gap-x-8 lg:gap-x-36">
           {credits.crew
             .sort((a, b) => b.popularity - a.popularity)
             .slice(0, 10)
