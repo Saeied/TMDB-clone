@@ -52,3 +52,15 @@ export interface Cast extends Omit<Crew, "job"> {
   character: string;
   order: number;
 }
+
+export interface Review {
+  id: string;
+  author: string;
+  author_details: {
+    name: string;
+    avatar_path: string;
+    rating: number;
+  };
+  content: string;
+  created_at: string;
+}
