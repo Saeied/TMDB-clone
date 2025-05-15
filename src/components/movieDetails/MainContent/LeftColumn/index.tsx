@@ -1,4 +1,5 @@
 import TopBilledCast from "./Cast";
+import Media from "./Media";
 import Social from "./Social";
 
 export default function LeftColumn() {
@@ -7,6 +8,9 @@ export default function LeftColumn() {
       <TopBilledCast />
       <hr className="my-3" />
       <Social />
+      <hr className="my-4" />
+      <Media />
+      <hr className="my-6" />
     </div>
   );
 }

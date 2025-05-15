@@ -2,7 +2,6 @@
 import instance from "@/services/interceptor";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import SocialTabs from "./Tabs";
 import { Review } from "@/types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -10,6 +9,7 @@ import ReviewBox from "./ReviewBox";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@heroui/react";
 import ErrorComponent from "@/components/common/ErrorComponent";
+import CustomTabs from "@/components/common/Tabs";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -47,8 +47,14 @@ export default function Social() {
               {social?.data.results.length == 0 ? (
                 <p>there are no reviews for this movie yet</p>
               ) : (
-                <>
-                  <SocialTabs reviewsNum={reviewsNum} />
+                <div className="flex flex-col gap-3">
+                  <CustomTabs
+                    h3="Social"
+                    items={[
+                      { text: "Reviews", number: reviewsNum },
+                      { text: "Discussions", number: 12 },
+                    ]}
+                  />
                   <div>
                     <Swiper
                       onSlideChange={(swiper) =>
@@ -66,7 +72,10 @@ export default function Social() {
                       ))}
                     </Swiper>
                   </div>
-                </>
+                  <span className="text-[17px] hover:text-gray-500 cursor-pointer my-2">
+                    Read All Reviews
+                  </span>
+                </div>
               )}
             </>
           )}

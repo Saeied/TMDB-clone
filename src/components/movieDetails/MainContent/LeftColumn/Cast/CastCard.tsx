@@ -9,7 +9,11 @@ const CastCard: FC<Cast> = ({ name, profile_path, character }) => {
         className="rounded-none rounded-t-lg"
         height={180}
         width={140}
-        src={`https://image.tmdb.org/t/p/w154${profile_path}`}
+        src={
+          profile_path == null
+            ? "/images/notFound/no-avatar.png"
+            : `https://image.tmdb.org/t/p/w154${profile_path}`
+        }
       />
       <div className="ps-2">
         <strong className="text-[15px]">{name}</strong>

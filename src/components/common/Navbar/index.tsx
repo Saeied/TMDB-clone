@@ -14,11 +14,13 @@ import { HiSearch } from "react-icons/hi";
 import { User } from "@heroui/user";
 import { FaBell } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export default function MyNavbar() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
   const pathname = usePathname();
 
   const menuItems = [
@@ -133,6 +135,13 @@ export default function MyNavbar() {
       >
         <HiSearch size={20} />
         <input
+          value={searchKey}
+          onChange={(e) => setSearchKey(e.target.value)}
+          onKeyUp={(e) => {
+            if (e.key == "Enter" && searchKey) {
+              router.push(`/search/movie?query=${searchKey}`);
+            }
+          }}
           className="w-full outline-none py-3 italic text-gray-400"
           placeholder="Search for a movie, tv show, Person..."
         />

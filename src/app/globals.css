@@ -22,7 +22,7 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  background-color: #e8e8e8;
+  background-color: #cdcdcd;
   border-radius: 9999px;
   border: 2px solid transparent;
   background-clip: content-box;
