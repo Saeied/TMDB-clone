@@ -20,7 +20,6 @@ export default function SearchResultsList({ query, slug }: IProps) {
     queryKey: ["searchedMovies"],
     queryFn: () =>
       instance.get(`/search/${slug}?query=${query}&page=${page.toString()}`),
-    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

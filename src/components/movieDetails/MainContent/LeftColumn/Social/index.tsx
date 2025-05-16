@@ -25,7 +25,6 @@ export default function Social() {
   } = useQuery<{ data: { results: Review[] } }>({
     queryKey: ["social"],
     queryFn: () => instance.get(`/movie/${id}/reviews`),
-    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

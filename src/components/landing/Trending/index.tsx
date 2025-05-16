@@ -18,7 +18,6 @@ export default function Trending() {
       instance
         .get(`/trending/movie/${time}?page=${page}`)
         .then((res) => res.data),
-    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

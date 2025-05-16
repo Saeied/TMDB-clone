@@ -8,7 +8,6 @@ function Popular() {
   const { data, isFetching, error } = useQuery({
     queryKey: ["popular"],
     queryFn: () => instance.get("/movie/popular").then((res) => res.data),
-    refetchOnWindowFocus: false,
   });
 
   if (error) {

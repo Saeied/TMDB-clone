@@ -17,7 +17,6 @@ export default function MyLink({ name, text, url, slug }: IProps) {
   const { data, isLoading, error } = useQuery({
     queryKey: [`myLink${text}`],
     queryFn: () => instance.get(url),
-    refetchOnWindowFocus: false,
   });
 
   return (

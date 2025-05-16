@@ -14,7 +14,6 @@ function Trailers() {
   const { data, isFetching, error } = useQuery({
     queryKey: ["nowPlaying"],
     queryFn: () => instance.get("/movie/now_playing"),
-    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
