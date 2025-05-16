@@ -12,13 +12,15 @@ import { Link } from "@heroui/link";
 import { useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { User } from "@heroui/user";
-import { FaBell } from "react-icons/fa";
+import { FaHome, FaBell } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export default function MyNavbar() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
   const pathname = usePathname();
 
   const menuItems = [
@@ -53,7 +55,10 @@ export default function MyNavbar() {
           />
         </NavbarContent>
         <NavbarContent className="hidden sm:flex gap-6" justify="center">
-          <NavbarBrand>
+          <NavbarBrand
+            className="py-2 cursor-pointer"
+            onClick={() => router.push("/")}
+          >
             <img
               width={155}
               src="/images/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
@@ -99,8 +104,11 @@ export default function MyNavbar() {
               name=""
             />
           </NavbarItem>
-          <NavbarItem>
-            <HiSearch color="#01B4E4" size={28} />
+          <NavbarItem
+            className="cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            <FaHome color="#fff" size={28} />
           </NavbarItem>
         </NavbarContent>
 
@@ -133,6 +141,13 @@ export default function MyNavbar() {
       >
         <HiSearch size={20} />
         <input
+          value={searchKey}
+          onChange={(e) => setSearchKey(e.target.value)}
+          onKeyUp={(e) => {
+            if (e.key == "Enter" && searchKey) {
+              router.push(`/search/movie?query=${searchKey}`);
+            }
+          }}
           className="w-full outline-none py-3 italic text-gray-400"
           placeholder="Search for a movie, tv show, Person..."
         />
