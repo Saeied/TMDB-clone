@@ -73,7 +73,7 @@ function Trailers() {
             <>
               {data?.data.results.map((item: MovieProps) => (
                 <div
-                  key={crypto.randomUUID()}
+                  key={item.id}
                   className="min-w-[290px] flex flex-col p-2 gap-4 items-center cursor-pointer group hover:scale-105 transition"
                   onMouseEnter={() => setTrailersBgUrl(item.backdrop_path)}
                 >

@@ -2,13 +2,12 @@ import instance from "@/services/interceptor";
 import { useQuery } from "@tanstack/react-query";
 import CustomCard from "./Card";
 import ErrorComponent from "@/components/common/ErrorComponent";
-import { Button, Pagination, Skeleton, Spinner } from "@heroui/react";
+import { Skeleton, Spinner } from "@heroui/react";
 import { useEffect, useState } from "react";
-import { HiMiniArrowLongLeft, HiMiniArrowLongRight } from "react-icons/hi2";
-import { cn } from "@/lib/utils";
 import { ParamValue } from "next/dist/server/request/params";
 import PersonCard from "./Person";
 import { MovieProps, Person, TvShowProps } from "@/types";
+import CustomPagination from "@/components/common/CustomPagination";
 
 interface IProps {
   query: string | null;
@@ -39,8 +38,11 @@ export default function SearchResultsList({ query, slug }: IProps) {
               {slug == "movie" || slug == "tv" || slug == "collection" ? (
                 new Array(10)
                   .fill("")
-                  .map((_, index) => (
-                    <Skeleton key={index} className="h-[140px] rounded-lg" />
+                  .map(() => (
+                    <Skeleton
+                      key={crypto.randomUUID()}
+                      className="h-[140px] rounded-lg"
+                    />
                   ))
               ) : (
                 <Spinner className="mt-4" />
@@ -93,53 +95,11 @@ export default function SearchResultsList({ query, slug }: IProps) {
                       </>
                     )}
                   </>
-                  <div className="flex justify-center items-center mt-4">
-                    <Button
-                      disabled={page == 1}
-                      className={cn(
-                        "text-[16px] bg-transparent",
-                        page == 1 && "text-[#D8D8D8]"
-                      )}
-                      size="sm"
-                      variant="flat"
-                      onPress={() => {
-                        setPage((prev) => (prev > 1 ? prev - 1 : prev));
-                        scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                    >
-                      <HiMiniArrowLongLeft className="" />
-                      Previous
-                    </Button>
-                    <Pagination
-                      classNames={{
-                        wrapper: "gap-0",
-                        item: "text-small rounded-xl bg-transparent shadow-none",
-                        cursor: "bg-[#E1E1E1] text-main",
-                      }}
-                      page={page}
-                      total={Math.ceil(data?.data.total_pages)}
-                      onChange={(number) => {
-                        setPage(number);
-                        scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                    />
-                    <Button
-                      disabled={page == data?.data.total_pages}
-                      className={cn(
-                        "text-[16px] bg-transparent",
-                        page == data?.data.total_pages && "text-[#D8D8D8]"
-                      )}
-                      size="sm"
-                      variant="flat"
-                      onPress={() => {
-                        setPage((prev) => (prev < 10 ? prev + 1 : prev));
-                        scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                    >
-                      Next
-                      <HiMiniArrowLongRight />
-                    </Button>
-                  </div>
+                  <CustomPagination
+                    page={page}
+                    setPage={setPage}
+                    totalPages={data?.data.total_pages}
+                  />
                 </>
               ) : (
                 <p>There are no results that matched your query.</p>

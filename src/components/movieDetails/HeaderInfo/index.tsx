@@ -121,8 +121,8 @@ export default async function HeaderInfo({
           {credits.crew
             .sort((a, b) => b.popularity - a.popularity)
             .slice(0, 10)
-            .map((crew) => (
-              <div key={crew.id} className="my-3">
+            .map((crew, index) => (
+              <div key={`${crew.id}-${index}`} className="my-3">
                 <p>{crew.name}</p>
                 <p>{crew.job}</p>
               </div>
