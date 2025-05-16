@@ -66,7 +66,7 @@ export default function Social() {
                       loop={true}
                     >
                       {social?.data.results.map((review) => (
-                        <SwiperSlide>
+                        <SwiperSlide key={review.id}>
                           <ReviewBox {...review} currentIndex={currentIndex} />
                         </SwiperSlide>
                       ))}
