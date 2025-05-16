@@ -56,7 +56,10 @@ export default function MyNavbar() {
             />
           </NavbarBrand>
           <NavbarItem>
-            <Link href="/movies" className="text-white text-xl">
+            <Link
+              href="/movies"
+              className="text-white hover:text-[#14B7DC] text-xl"
+            >
               Movies
             </Link>
           </NavbarItem>
@@ -92,7 +95,6 @@ export default function MyNavbar() {
       <div
         className={cn(
           "bg-white flex gap-3 items-center px-7 lg:px-20 xl:px-52 border-b",
-          pathname.startsWith("/movie") && "hidden",
           isMenuOpen && "hidden"
         )}
       >
