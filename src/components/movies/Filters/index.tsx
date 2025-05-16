@@ -62,7 +62,6 @@ export default function MoviesFilteringCol({
   }>({
     queryKey: ["genres"],
     queryFn: () => instance.get("/genre/movie/list"),
-    refetchOnWindowFocus: false,
   });
 
   return (
@@ -106,6 +105,7 @@ export default function MoviesFilteringCol({
             <div className="flex flex-wrap gap-1">
               {data?.data.genres.map((genre) => (
                 <Button
+                  key={genre.id}
                   id={genre.id.toString()}
                   variant={
                     genresArray.includes(genre.id) ? "solid" : "bordered"

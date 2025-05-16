@@ -25,7 +25,6 @@ export default function RightColumn({ movie }: { movie: MovieProps }) {
   } = useQuery({
     queryKey: ["keywords"],
     queryFn: () => instance.get(`/movie/${id}/keywords`),
-    refetchOnWindowFocus: false,
   });
 
   return (

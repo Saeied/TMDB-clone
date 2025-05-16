@@ -21,7 +21,6 @@ export default function Media() {
   } = useQuery<{ data: { backdrops: MediaProps[]; posters: MediaProps[] } }>({
     queryKey: ["videos"],
     queryFn: () => instance.get(`/movie/${id}/images`),
-    refetchOnWindowFocus: false,
   });
 
   return (

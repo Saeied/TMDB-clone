@@ -18,7 +18,6 @@ export default function TopBilledCast() {
   } = useQuery<{ data: { cast: Cast[] } }>({
     queryKey: ["cast"],
     queryFn: () => instance.get(`/movie/${id}/credits`),
-    refetchOnWindowFocus: false,
   });
 
   return (
