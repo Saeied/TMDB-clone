@@ -50,10 +50,7 @@ export default function Social() {
                 <div className="flex flex-col gap-3">
                   <CustomTabs
                     h3="Social"
-                    items={[
-                      { text: "Reviews", number: reviewsNum },
-                      { text: "Discussions", number: 12 },
-                    ]}
+                    items={[{ text: "Reviews", number: reviewsNum }]}
                   />
                   <div>
                     <Swiper

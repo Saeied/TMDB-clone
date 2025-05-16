@@ -56,7 +56,7 @@ export default function MyNavbar() {
             />
           </NavbarBrand>
           <NavbarItem>
-            <Link href="/movies" className="text-white">
+            <Link href="/movies" className="text-white text-xl">
               Movies
             </Link>
           </NavbarItem>
