@@ -42,24 +42,33 @@ export default function TopBilledCast() {
               </>
             ) : (
               <>
-                {cast?.data.cast
-                  .sort((a, b) => a.order - b.order)
-                  .slice(0, 9)
-                  .map((cast) => (
-                    <CastCard key={cast.id} {...cast} />
-                  ))}
+                {cast?.data.cast.length == 0 ? (
+                  <p className="mt-8">no cast are added yet</p>
+                ) : (
+                  <>
+                    {cast?.data.cast
+                      .sort((a, b) => a.order - b.order)
+                      .slice(0, 9)
+                      .map((cast) => (
+                        <CastCard key={cast.id} {...cast} />
+                      ))}
+                  </>
+                )}
               </>
             )}
             <span
               className={cn(
                 "flex items-center justify-center gap-2 min-w-[120px] cursor-pointer",
-                isFetching && "hidden"
+                isFetching && "hidden",
+                cast?.data.cast.length == 0 && "hidden"
               )}
             >
               View More <FaArrowRightLong />
             </span>
           </div>
-          <p className="my-5">Full Cast & Crew</p>
+          <p className={cn("my-5", cast?.data.cast.length == 0 && "hidden")}>
+            Full Cast & Crew
+          </p>
         </div>
       )}
     </>
