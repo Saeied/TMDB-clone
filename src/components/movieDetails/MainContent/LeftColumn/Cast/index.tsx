@@ -33,9 +33,9 @@ export default function TopBilledCast() {
           <div className="flex gap-4 overflow-x-scroll overflow-y-hidden custom-scroll pb-6">
             {isFetching ? (
               <>
-                {new Array(9).fill("").map((_, index) => (
+                {new Array(9).fill("").map(() => (
                   <Skeleton
-                    key={index}
+                    key={crypto.randomUUID()}
                     className="min-w-[140px] h-[180px] rounded-lg"
                   />
                 ))}

@@ -8,12 +8,11 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@heroui/navbar";
-import { Link } from "@heroui/link";
+import Link from "next/link";
 import { useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { User } from "@heroui/user";
-import { FaHome, FaBell } from "react-icons/fa";
-import { IoMdAdd } from "react-icons/io";
+import { AiFillHome } from "react-icons/ai";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -24,16 +23,8 @@ export default function MyNavbar() {
   const pathname = usePathname();
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    { title: "Home", to: "/" },
+    { title: "Movies", to: "/movies" },
   ];
 
   return (
@@ -65,37 +56,13 @@ export default function MyNavbar() {
             />
           </NavbarBrand>
           <NavbarItem>
-            <Link href="#" className="text-white">
+            <Link href="/movies" className="text-white text-xl">
               Movies
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link href="#" className="text-white">
-              TV Shows
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link href="#" className="text-white">
-              People
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link href="#" className="text-white">
-              More
             </Link>
           </NavbarItem>
         </NavbarContent>
 
         <NavbarContent className="hidden sm:flex gap-7" justify="end">
-          <NavbarItem>
-            <IoMdAdd color="white" size={22} className="font-bold" />
-          </NavbarItem>
-          <NavbarItem className="text-white">
-            <span className="text-[12px] p-[5px] border rounded-sm">EN</span>
-          </NavbarItem>
-          <NavbarItem>
-            <FaBell color="white" size={20} />
-          </NavbarItem>
           <NavbarItem className="hidden lg:flex">
             <User
               avatarProps={{
@@ -108,26 +75,15 @@ export default function MyNavbar() {
             className="cursor-pointer"
             onClick={() => router.push("/")}
           >
-            <FaHome color="#fff" size={28} />
+            <AiFillHome color="#fff" size={28} />
           </NavbarItem>
         </NavbarContent>
 
         <NavbarMenu>
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                className="w-full"
-                color={
-                  index === 2
-                    ? "warning"
-                    : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
-                href="#"
-                size="lg"
-              >
-                {item}
+              <Link className="w-full hover:text-blue-600" href={item.to}>
+                {item.title}
               </Link>
             </NavbarMenuItem>
           ))}
@@ -136,7 +92,8 @@ export default function MyNavbar() {
       <div
         className={cn(
           "bg-white flex gap-3 items-center px-7 lg:px-20 xl:px-52 border-b",
-          pathname.startsWith("/movie") && "hidden"
+          pathname.startsWith("/movie") && "hidden",
+          isMenuOpen && "hidden"
         )}
       >
         <HiSearch size={20} />

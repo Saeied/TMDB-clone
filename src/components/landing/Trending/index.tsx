@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Slider from "../../common/Slider";
 import styles from "./index.module.css";
 import ErrorComponent from "@/components/common/ErrorComponent";
-import "react-circular-progressbar/dist/styles.css";
 
 export default function Trending() {
   const [time, setTime] = useState("day");

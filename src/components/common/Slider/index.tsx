@@ -2,12 +2,12 @@
 import { FC, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { IoCaretForwardOutline, IoCaretBackOutline } from "react-icons/io5";
-import { Image, Skeleton } from "@heroui/react";
+import { CircularProgress, Image, Skeleton } from "@heroui/react";
 import Link from "next/link";
 import moment from "moment";
 import { MovieProps } from "@/types";
+import { cn } from "@/lib/utils";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -80,12 +80,12 @@ const Slider: FC<IProps> = ({ data, isFetching }) => {
       >
         {isFetching ? (
           <>
-            {new Array(7).fill("").map((_, index) => (
+            {new Array(7).fill("").map(() => (
               <SwiperSlide>
                 <div className="flex flex-col gap-6 items-center">
                   <Skeleton
                     className="h-[220px] w-[160px] rounded-xl"
-                    key={index}
+                    key={crypto.randomUUID()}
                   ></Skeleton>
                 </div>
               </SwiperSlide>
@@ -93,7 +93,7 @@ const Slider: FC<IProps> = ({ data, isFetching }) => {
           </>
         ) : (
           data?.results.map((item, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={`${item.title}-${index}`}>
               <Link
                 href={`/movie/${item.id}`}
                 className="flex flex-col gap-6 items-center"
@@ -103,23 +103,23 @@ const Slider: FC<IProps> = ({ data, isFetching }) => {
                     src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
                     className="rounded-lg h-[220px]"
                   />
-                  <CircularProgressbar
-                    className="w-9 h-9 absolute -left-10 -bottom-3 z-10"
+                  <CircularProgress
                     value={item.vote_average * 10}
-                    text={`${Math.ceil(item.vote_average * 10)}%`}
-                    background
-                    styles={buildStyles({
-                      pathColor:
+                    showValueLabel={true}
+                    className="w-9 h-9 absolute left-2 -bottom-4 z-10 text-white"
+                    classNames={{
+                      base: "bg-black rounded-full",
+                      value: "text-[12px]",
+                    }}
+                    color={
+                      cn(
                         item.vote_average * 10 >= 70
-                          ? "#21D07A"
+                          ? "success"
                           : item.vote_average * 10 >= 30
-                          ? "#D2D531"
-                          : "red",
-                      textColor: "#fff",
-                      trailColor: "#fff",
-                      textSize: "30px",
-                      backgroundColor: "#000",
-                    })}
+                          ? "warning"
+                          : "danger"
+                      ) as "success" | "warning" | "danger"
+                    }
                   />
                 </div>
                 <div>

@@ -1,7 +1,7 @@
 import HeaderInfo from "@/components/movieDetails/HeaderInfo";
 import MainContent from "@/components/movieDetails/MainContent";
-import ShortcutBar from "@/components/movieDetails/ShortcutBar";
 import instance from "@/services/interceptor";
+import { Spinner } from "@heroui/spinner";
 import { Suspense } from "react";
 
 const MovieDetails = async ({
@@ -14,13 +14,18 @@ const MovieDetails = async ({
   const data = await response.data;
 
   return (
-    <div>
-      <ShortcutBar />
-      <Suspense fallback={<p className="text-4xl">fetching data....</p>}>
+    <>
+      <Suspense
+        fallback={
+          <div className="my-20 text-center">
+            <Spinner variant="wave" />
+          </div>
+        }
+      >
         <HeaderInfo movie={data} id={id} />
       </Suspense>
       <MainContent movie={data} />
-    </div>
+    </>
   );
 };
 
