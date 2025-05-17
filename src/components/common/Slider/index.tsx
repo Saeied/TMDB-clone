@@ -50,8 +50,11 @@ const Slider: FC<IProps> = ({ data, isFetching }) => {
           0: {
             slidesPerView: 1,
           },
-          400: {
+          350: {
             slidesPerView: 2,
+          },
+          480: {
+            slidesPerView: 3,
           },
           640: {
             slidesPerView: 4,
