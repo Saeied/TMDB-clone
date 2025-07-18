@@ -13,8 +13,9 @@ export default function CustomPagination({
   setPage: Dispatch<SetStateAction<number>>;
   totalPages: number;
 }) {
+
   return (
-    <div className="flex justify-center items-center mt-4">
+    <div className="flex items-center justify-center mt-4">
       <Button
         disabled={page == 1}
         className={cn(
@@ -45,10 +46,11 @@ export default function CustomPagination({
         }}
       />
       <Button
-        disabled={page == 500}
+        disabled={page == 500 || totalPages == 1}
         className={cn(
           "text-[16px] bg-transparent",
-          page == 500 && "text-[#D8D8D8]"
+          page == 500 && "text-[#D8D8D8]",
+          page == 1 && "text-[#D8D8D8]"
         )}
         size="sm"
         variant="flat"
